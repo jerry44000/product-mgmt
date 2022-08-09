@@ -33,10 +33,10 @@ userSchema.statics.signup = async function (email, password) {
     throw Error("Email is invalid.");
   }
   // Validation password using method isLength from validator package
-  if(!valisator.isLength(password, {min: 8})) {
+  if (!valisator.isLength(password, { min: 8 })) {
     throw Error("Password must be at least 8 characters please.");
   }
-  
+
   // Check if user already exists
   const userAlreadyExists = await this.findOne({ email });
   if (userAlreadyExists) {
@@ -50,6 +50,32 @@ userSchema.statics.signup = async function (email, password) {
     email,
     password: hashedPassword,
   });
+  return user;
+};
+
+// Login using static method
+userSchema.statics.login = async function (email, password) {
+  // Validation email & password input (validator package)
+  if (!email && !password) {
+    throw Error("Email and password are required");
+  }
+  if (!email) {
+    throw Error("Email is required.");
+  }
+  if (!password) {
+    throw Error("Password is required.");
+  }
+  // Check if user exists using email
+  const user = await this.findOne({ email });
+  if (!user) {
+    throw Error("Email doesn't exists.");
+  }
+  // Check if password is correct and match with hashed password (user.password)
+  const isPasswordMatch = await bcrypt.compare(password, user.password);
+
+  if (!isPasswordMatch) {
+    throw Error("Password is incorrect.");
+  }
   return user;
 };
 
