@@ -1,9 +1,12 @@
+/* TEMPLATE CSS */
+
+
 /* google font */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;800&family=VT323&display=swap");
 
 /* layout */
 :root {
-  --primary: #1aac83;
+  --primary: #1a30ac;
   --error: #e7195a;
 }
 body {
@@ -67,6 +70,11 @@ header a {
   color: #333;
   border: transparent;
 }
+.product-details button:hover {
+  background: red;
+  color: #fff;
+}
+ 
 
 /* form */
 label, input {
@@ -90,11 +98,23 @@ form button {
   border-radius: 4px;
   cursor: pointer;
 }
-/* div.error {
-  padding: 10px;
-  background: #ffefef;
-  border: 1px solid var(--error);
-  color: var(--error);
+form button:hover {
+  background: #091759;
+}
+
+/* navbar */
+nav {
+  display: flex;
+  align-items: center;
+}
+nav a {
+  margin-left: 10px;
+}
+/* auth forms */
+form.signup, form.login {
+  max-width: 400px;
+  margin: 40px auto;
+  padding: 20px;
+  background: #fff;
   border-radius: 4px;
-  margin: 20px 0;
-} */
+}

@@ -40,7 +40,7 @@ const ProductDetails = ({ product }) => {
         {formatDistanceToNow(new Date(product.createdAt), { addSuffix: true })}
       </p>
       <button className="material-symbols-outlined" onClick={handleDelete}>
-        delete
+        close
       </button>
       <ToastContainer />
     </div>
