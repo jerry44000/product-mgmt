@@ -1,5 +1,6 @@
 import React from "react";
 import { useProductsContext } from "../hooks/useProductsContext";
+import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
@@ -24,6 +25,8 @@ const ProductDetails = ({ product }) => {
     }
   };
 
+  const handleUpdate = async (id) => {};
+
   return (
     <div className="product-details">
       <h4>{product.title}</h4>
@@ -39,6 +42,9 @@ const ProductDetails = ({ product }) => {
       <p>
         {formatDistanceToNow(new Date(product.createdAt), { addSuffix: true })}
       </p>
+      <Link to={`/products/${product._id}`} state={{ product }}>
+        <p className="update">Update</p>
+      </Link>
       <button className="material-symbols-outlined" onClick={handleDelete}>
         close
       </button>

@@ -74,6 +74,9 @@ header a {
   background: red;
   color: #fff;
 }
+.update {
+  cursor: pointer;
+}
  
 
 /* form */
