@@ -25,8 +25,6 @@ const ProductDetails = ({ product }) => {
     }
   };
 
-  const handleUpdate = async (id) => {};
-
   return (
     <div className="product-details">
       <h4>{product.title}</h4>

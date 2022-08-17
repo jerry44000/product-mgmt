@@ -23,15 +23,21 @@ export const productsReducer = (state, action) => {
         ),
       };
       case "UPDATE_PRODUCT":
+      // return {
+      //   products: state.products.map((product) => {
+      //     if (product._id === action.payload._id) {
+      //       return action.payload;
+      //     } else {
+      //       return product;
+      //     }
+      //   }),
+      // };
       return {
-        products: state.products.map((product) => {
-          if (product._id === action.payload._id) {
-            return action.payload;
-          } else {
-            return product;
-          }
-        }),
-      };
+        ...state,
+        products: [
+          ...state.products.filter((product) => product._id !== action.payload._id),
+        ],
+      }
     default:
       return state;
   }
