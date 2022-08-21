@@ -13,6 +13,8 @@ body {
   margin: 0;
   font-family: "Poppins";
 }
+
+
 header {
   background: #fff;
 }
@@ -111,6 +113,12 @@ nav {
 }
 nav a {
   margin-left: 10px;
+  border-bottom: 3px solid transparent;
+}
+
+nav a:hover {
+  border-color: black;
+  color: black;
 }
 
 .btn-logout {
@@ -126,19 +134,21 @@ nav a {
   background: #091759;
 }
 
-/* nav button {
-  background: rgb(255, 255, 255);
-  color: var(--primary);
-  padding: 6px 10px;
-  border-radius: 4px;
+nav button {
+  margin: 5px;
+  background: transparent;
+  border: 3px solid #091759;
+  color: rgb(13, 12, 12);
+  padding: 10px;
   font-family: "Poppins";
+  border-radius: 4px;
   cursor: pointer;
-  font-size: 1em;
+  margin-left: 10px;
 }
-
 nav button:hover {
   background: #091759;
-} */
+  color: #fff;
+}
 
 /* auth forms */
 form.signup,

@@ -1,16 +1,22 @@
 import React, { useEffect } from "react";
 import { useProductsContext } from "../hooks/useProductsContext";
+import { useAuthContext } from "../hooks/useAuthContext";
 import ProductDetails from "../components/ProductDetails.js";
 import ProductForm from "../components/ProductForm.js";
 
 const Home = () => {
   // Get the products from the context and distructure them
   const { products, dispatch } = useProductsContext();
+  const { user } = useAuthContext();
 
   // Fetches products from the server and sets them to the state
   useEffect(() => {
     const fetchProducts = async () => {
-      const res = await fetch("/api/products");
+      const res = await fetch("/api/products", {
+        headers: {
+          'Authorization': `Bearer ${user.token}`,
+        },
+      });
       const data = await res.json();
 
       if (res.ok) {
@@ -18,8 +24,10 @@ const Home = () => {
         dispatch({ type: "SET_PRODUCTS", payload: data });
       }
     };
-    fetchProducts();
-  }, [dispatch]);
+    if (user) {
+      fetchProducts();
+    }
+  }, [dispatch, user]);
 
   return (
     <div className="home">

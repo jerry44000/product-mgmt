@@ -5,6 +5,24 @@ const userRoutes = require("./routes/user");
 const mongoose = require("mongoose");
 const app = express();
 
+// // Extended : https://swagger.io/specification/#infoObject
+// const swaggerOptions = {
+//   swaggerDefinition: {
+//     info: {
+//       title: "Product API",
+//       description: "Product API Information",
+//       contact: {
+//         name: "Shai",
+//       },
+//       servers: ["http://localhost:4000"],
+//     }
+//   },
+//   apis: ["./server/routes/*.js"]
+// };
+
+// const swaggerDocs = swaggerJsdoc(swaggerOptions);
+// app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+
 // Connect to MongoDB Database
 mongoose
   .connect(process.env.MONG_URI)
@@ -26,6 +44,7 @@ app.use((req, res, next) => {
   console.log(req.path, req.method);
   next();
 });
+
 
 // Routes Products
 app.use("/api/products", productRoutes);

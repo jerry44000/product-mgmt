@@ -5,6 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const { error, isLoading, signup } = useSignUp();
 
   const reset = () => {
@@ -15,10 +16,15 @@ const SignUp = () => {
   // Function to submit form and request the back
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Waiting for signup function
-    await signup(email, password);
-    reset();
-    
+    // Check if passwords match
+    if (password !== confirmPassword) {
+      toast("Passwords do not match", { type: "error" });
+      return;
+    } else {
+      // Waiting for signup function
+      await signup(email, password);
+      reset();
+    }
   };
   return (
     <form className="signup" onSubmit={handleSubmit}>
@@ -35,9 +41,15 @@ const SignUp = () => {
         onChange={(e) => setPassword(e.target.value)}
         value={password}
       />
+      <label htmlFor="">Confirm password:</label>
+      <input
+        type="password"
+        onChange={(e) => setConfirmPassword(e.target.value)}
+        value={confirmPassword}
+      />
 
       <button disabled={isLoading}>Sign Up</button>
-      
+
       <ToastContainer />
     </form>
   );

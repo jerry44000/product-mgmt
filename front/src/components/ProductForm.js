@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { useProductsContext } from "../hooks/useProductsContext";
+import { useAuthContext } from "../hooks/useAuthContext";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const ProductForm = () => {
   // Get dispatch from the context and distructure it
   const { dispatch } = useProductsContext();
+  const { user } = useAuthContext();
 
   // Form for adding new product
   const [title, setTitle] = useState("");
@@ -21,18 +23,26 @@ const ProductForm = () => {
     setQuantity("");
     setDescription("");
     setError(null);
-
   };
 
   // Function to submit the form
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+     // Check if user is logged in
+     if(!user) {
+      toast("You must be logged in to add a product", { type: "error" });
+    };
+
     const product = { title, price, quantity, description };
     // Fetch the server
     const res = await fetch("/api/products", {
       method: "POST",
       body: JSON.stringify(product),
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        'Authorization': `Bearer ${user.token}`,
+      },
     });
     const json = await res.json();
     // Check if response is ok and set error

@@ -1,5 +1,6 @@
 import React from "react";
 import { useProductsContext } from "../hooks/useProductsContext";
+import { useAuthContext } from "../hooks/useAuthContext";
 import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -8,12 +9,21 @@ import formatDistanceToNow from "date-fns/formatDistanceToNow";
 const ProductDetails = ({ product }) => {
   // Get dispatch from the context and distructure it
   const { dispatch } = useProductsContext();
+  const { user } = useAuthContext();
 
   // Function to delete the product
   const handleDelete = async () => {
+    // Check if user is logged in
+    if (!user) {
+      toast("You must be logged in to delete a product", { type: "error" });
+      return;
+    }
     // Fetch the server using the product id (from props)
     const res = await fetch(`/api/products/${product._id}`, {
       method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
     });
     //Wait for the response json(product._id)
     const json = await res.json();

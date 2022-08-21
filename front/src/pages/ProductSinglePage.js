@@ -46,6 +46,7 @@ const ProductSinglePage = () => {
 
   // Function to update the product
   const handleUpdate = async (id) => {
+     console.log(title, price, quantity, description);
     // Fetch the server using the product id (from props)
     const res = await fetch(`/api/products/${product._id}`, {
       method: "PATCH",
@@ -64,6 +65,7 @@ const ProductSinglePage = () => {
       navigate("/");
     }
   };
+
   return (
     <form className="create" onSubmit={handleUpdate}>
       <h2>Update Product</h2>

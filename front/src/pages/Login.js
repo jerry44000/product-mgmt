@@ -1,19 +1,19 @@
 import React, { useState } from "react";
+import { useLogin } from "../hooks/useLogin.js";
 import { ToastContainer, toast } from "react-toastify";
 
 const Login = () => {
+  const { login, isLoading, signup } = useLogin();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  
 
   // Function to submit form and request the back
   const handleSubmit = async(e) => {
     e.preventDefault();
-    // if (password !== confirmPassword) {
-    //   alert("Passwords do not match");
-    //   return;
-    // }
-    // const res = await fetch("/api/signup", {})
+    // Waiting for login function
+    await login(email, password);
+    
   };
   return (
     <form className="login" onSubmit={handleSubmit}>
@@ -31,7 +31,7 @@ const Login = () => {
         value={password}
       />
 
-      <button>Log In</button>
+      <button disabled={isLoading}>Log In</button>
       <ToastContainer />  
     </form>
   );
