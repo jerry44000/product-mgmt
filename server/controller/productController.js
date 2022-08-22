@@ -3,7 +3,10 @@ const mongoose = require("mongoose");
 
 // GET all Products
 const getAllProducts = async (req, res) => {
-  const products = await Product.find({}).sort({ createdAt: -1 });
+  // Get the user id from the request to get his products
+  const user_id = req.user._id;
+  // Find all products of the user by using the id mathching the user id
+  const products = await Product.find({ user_id }).sort({ createdAt: -1 });
   res.status(200).json(products);
 };
 
@@ -38,11 +41,13 @@ const createProduct = async (req, res) => {
   if (!description) requiredFields.push("description");
   
   try {
+    const user_id = req.user._id;
     const product = await Product.create({
       title,
       price,
       quantity,
       description,
+      user_id,
     });
     res.status(200).json(product);
   } catch (err) {
